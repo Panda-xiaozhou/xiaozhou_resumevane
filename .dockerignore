@@ -1,0 +1,32 @@
+# 环境变量（运行时注入，不打包进镜像）
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+backend/tests/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Frontend
+frontend/node_modules/
+
+# Uploads
+uploads/
+
+# Docker
+.docker/
+Dockerfile
+docker-compose.yml
+
+# CI/CD
+.github/
