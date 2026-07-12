@@ -22,6 +22,7 @@ Thumbs.db
 
 # Docker
 .docker/
+.codex/
 
 # Uploads (local dev)
 uploads/
