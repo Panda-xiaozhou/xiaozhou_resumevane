@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import {
+  getHrLoginRedirectLocation,
+  getHrPostLoginLocation,
+} from "./hr_auth_redirect.js";
+
 const routes = [
   // 候选人门户
   {
@@ -66,12 +71,12 @@ router.beforeEach((to) => {
   if (to.name === "admin-login") {
     // 已登录则跳过登录页
     if (localStorage.getItem("hr_token")) {
-      return { name: "admin-dashboard" };
+      return getHrPostLoginLocation(to);
     }
   } else if (to.path.startsWith("/admin")) {
     // 管理页面需验证 token
     if (!localStorage.getItem("hr_token")) {
-      return { name: "admin-login" };
+      return getHrLoginRedirectLocation(to);
     }
   }
 });

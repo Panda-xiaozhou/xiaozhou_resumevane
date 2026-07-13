@@ -165,7 +165,8 @@ const deleteJob = async () => {
     showDialog.value = false;
     await fetchJobs();
   } catch (e) {
-    ElMessage.error("操作失败");
+    const msg = e.response?.data?.detail || e.response?.data?.error || "操作失败";
+    ElMessage.error(msg);
   } finally {
     deleting.value = false;
   }
@@ -177,7 +178,8 @@ const updateStatus = async (jobId, status) => {
     ElMessage.success("状态已更新");
     await fetchJobs();
   } catch (e) {
-    ElMessage.error("操作失败");
+    const msg = e.response?.data?.detail || e.response?.data?.error || "操作失败";
+    ElMessage.error(msg);
   }
 };
 

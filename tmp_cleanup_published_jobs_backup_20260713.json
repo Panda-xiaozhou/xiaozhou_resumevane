@@ -1,0 +1,351 @@
+{
+  "created_at": "2026-07-13T11:46:39.964247",
+  "rule": "backup all published jobs not owned by username=admin before cleanup",
+  "job_count": 20,
+  "jobs": [
+    {
+      "job_id": "d247efa1-e7a8-4f4c-8b9b-089cff41f60e",
+      "hr_user_id": "51a3ab0c-6828-462f-89e8-3fed00c546ed",
+      "username": "failview2_ce48eda1",
+      "display_name": "??????",
+      "title": "??????2",
+      "department": "???",
+      "jd_text": "????",
+      "jd_keywords": [
+        "Python"
+      ],
+      "status": "published",
+      "created_at": "2026-07-13 03:40:28.070129",
+      "updated_at": "2026-07-13 03:40:28.070129",
+      "application_count": 1
+    },
+    {
+      "job_id": "6f043b5e-0e51-4167-80bd-81bee1c3a6f5",
+      "hr_user_id": "3e7df924-eb4d-4592-bb86-8c8c60dc0624",
+      "username": "failview_093e630b",
+      "display_name": "??????",
+      "title": "??????",
+      "department": "???",
+      "jd_text": "????",
+      "jd_keywords": [
+        "Python"
+      ],
+      "status": "published",
+      "created_at": "2026-07-13 03:39:02.971687",
+      "updated_at": "2026-07-13 03:39:02.971687",
+      "application_count": 1
+    },
+    {
+      "job_id": "db361b43-3e67-4e4c-a5fd-5bf2e4bfc306",
+      "hr_user_id": "4e6a9292-5ea6-4283-ab05-775640d3ebe3",
+      "username": "hr_batch_e498ffe6",
+      "display_name": "??????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "?? Python ? FastAPI ??????? API ?????????",
+      "jd_keywords": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 21:04:49.075434",
+      "updated_at": "2026-07-12 21:04:49.075434",
+      "application_count": 1
+    },
+    {
+      "job_id": "cdd9abdd-4588-4c13-801e-6a149ef8c4b8",
+      "hr_user_id": "4e6a9292-5ea6-4283-ab05-775640d3ebe3",
+      "username": "hr_batch_e498ffe6",
+      "display_name": "??????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "????",
+      "jd_keywords": [
+        "Python"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 21:04:48.990966",
+      "updated_at": "2026-07-12 21:04:48.990966",
+      "application_count": 1
+    },
+    {
+      "job_id": "d737f669-73f9-4230-9bf4-49f4977a6aa7",
+      "hr_user_id": "4e6a9292-5ea6-4283-ab05-775640d3ebe3",
+      "username": "hr_batch_e498ffe6",
+      "display_name": "??????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "?? Python ? FastAPI ??????? API ?????????",
+      "jd_keywords": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 21:02:23.285153",
+      "updated_at": "2026-07-12 21:02:23.285153",
+      "application_count": 1
+    },
+    {
+      "job_id": "4e41e915-6795-4fc2-9508-3e291821c441",
+      "hr_user_id": "4e6a9292-5ea6-4283-ab05-775640d3ebe3",
+      "username": "hr_batch_e498ffe6",
+      "display_name": "??????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "????",
+      "jd_keywords": [
+        "Python"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 21:02:23.204422",
+      "updated_at": "2026-07-12 21:02:23.204422",
+      "application_count": 1
+    },
+    {
+      "job_id": "d969fb6e-fa8c-4b56-bc84-39ffcf04a1c8",
+      "hr_user_id": "1d1697bc-3d3b-4712-a181-9ae61376fb1f",
+      "username": "statusfix_3824c63f",
+      "display_name": "????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "????",
+      "jd_keywords": [
+        "Python"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 21:01:10.316385",
+      "updated_at": "2026-07-12 21:01:10.316385",
+      "application_count": 0
+    },
+    {
+      "job_id": "a518930a-2963-4a9b-bf48-033e13cb05be",
+      "hr_user_id": "4e6a9292-5ea6-4283-ab05-775640d3ebe3",
+      "username": "hr_batch_e498ffe6",
+      "display_name": "??????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "????",
+      "jd_keywords": [
+        "Python"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 20:45:55.477184",
+      "updated_at": "2026-07-12 20:45:55.477184",
+      "application_count": 1
+    },
+    {
+      "job_id": "29ddb3ae-79e4-465c-a9a6-e62d3bc74dbc",
+      "hr_user_id": "a89946f5-28a4-4392-ad32-55219f0487fe",
+      "username": "delbatch2_e26bdac0",
+      "display_name": "????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "?? Python ? FastAPI ??????? API ?????????",
+      "jd_keywords": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 20:33:32.304441",
+      "updated_at": "2026-07-12 20:33:32.304441",
+      "application_count": 0
+    },
+    {
+      "job_id": "d43af54f-e353-4b01-873f-ab605e89458b",
+      "hr_user_id": "bb5d0f5d-a4b6-44d5-9323-69f4d44227ee",
+      "username": "delbatch_ecc94c4b",
+      "display_name": "????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "?? Python ? FastAPI ??????? API ?????????",
+      "jd_keywords": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 20:31:14.463035",
+      "updated_at": "2026-07-12 20:31:14.463035",
+      "application_count": 2
+    },
+    {
+      "job_id": "ef5c1967-f967-4e56-8320-41bf74c5353f",
+      "hr_user_id": "a990d8a9-7d90-44f4-b22c-9bdbd1f605ff",
+      "username": "parsedfix_717822e2",
+      "display_name": "????",
+      "title": "??????",
+      "department": "???",
+      "jd_text": "?? Python ? FastAPI ??????? API ?????????",
+      "jd_keywords": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 20:18:24.445564",
+      "updated_at": "2026-07-12 20:18:24.445564",
+      "application_count": 1
+    },
+    {
+      "job_id": "67468c84-6ab7-4715-a69b-f193b6b308c3",
+      "hr_user_id": "b5450285-8ed4-47c7-9848-07ce1609317c",
+      "username": "parsedcheck_f09438d9",
+      "display_name": "????",
+      "title": "??????",
+      "department": "???",
+      "jd_text": "?? Python ? FastAPI ??????? API ?????????",
+      "jd_keywords": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 20:16:34.284755",
+      "updated_at": "2026-07-12 20:16:34.284755",
+      "application_count": 1
+    },
+    {
+      "job_id": "bffc8d10-d79f-4373-ae38-8a42d2429b58",
+      "hr_user_id": "f54005bd-a61d-42db-8fd4-e1ed01584555",
+      "username": "jobbtn_db9f5842",
+      "display_name": "????",
+      "title": "?????",
+      "department": "???",
+      "jd_text": "???????????",
+      "jd_keywords": [
+        "Python",
+        "FastAPI"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 19:59:33.647366",
+      "updated_at": "2026-07-12 19:59:33.647366",
+      "application_count": 1
+    },
+    {
+      "job_id": "9420f57c-25d8-4349-89c0-736083567b70",
+      "hr_user_id": "66bfe5fe-046d-446a-ab0c-53f40cccb59c",
+      "username": "editfix2_602991d2",
+      "display_name": "??????",
+      "title": "?????",
+      "department": "???",
+      "jd_text": "??JD??????????",
+      "jd_keywords": [
+        "React",
+        "TypeScript"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 19:57:17.256170",
+      "updated_at": "2026-07-12 19:57:17.256170",
+      "application_count": 0
+    },
+    {
+      "job_id": "a2446ad7-540c-4e35-afdd-38cea32cafe2",
+      "hr_user_id": "0fd9b5ad-ceae-404f-b73b-e76d19ef6658",
+      "username": "editfix_b4bc4b3b",
+      "display_name": "??????",
+      "title": "?????",
+      "department": "???",
+      "jd_text": "????JD??",
+      "jd_keywords": [
+        "Vue",
+        "TypeScript"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 19:56:27.926927",
+      "updated_at": "2026-07-12 19:56:28.262154",
+      "application_count": 0
+    },
+    {
+      "job_id": "2a2f4ccf-4f5f-4307-94b7-dcee645cbcdf",
+      "hr_user_id": "462b1541-888e-48bc-aae5-3145f0238a2e",
+      "username": "editbug_64c33f10",
+      "display_name": "????",
+      "title": "?????",
+      "department": "???",
+      "jd_text": "????JD??",
+      "jd_keywords": [
+        "Vue",
+        "TypeScript"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 19:55:37.504322",
+      "updated_at": "2026-07-12 19:55:37.863513",
+      "application_count": 0
+    },
+    {
+      "job_id": "e459702a-c104-43c9-83d1-b61735617dac",
+      "hr_user_id": "d7036258-db50-451c-9d65-ee0b89f92522",
+      "username": "vec_test_db16d137",
+      "display_name": "????",
+      "title": "????????",
+      "department": "???",
+      "jd_text": "?? React?TypeScript ??????????????????? CSS?",
+      "jd_keywords": [
+        "React",
+        "TypeScript",
+        "CSS"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 19:09:27.301424",
+      "updated_at": "2026-07-12 19:09:27.301424",
+      "application_count": 0
+    },
+    {
+      "job_id": "a19be9f3-a07e-4396-81d9-7310a7d66c05",
+      "hr_user_id": "c9eaaf0b-708f-40be-af49-b797d505a9d5",
+      "username": "vec_4b10235d",
+      "display_name": "?????",
+      "title": "??????",
+      "department": "???",
+      "jd_text": "?? React ? TypeScript ???????????????",
+      "jd_keywords": [
+        "React",
+        "TypeScript",
+        "CSS"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 19:06:53.353526",
+      "updated_at": "2026-07-12 19:06:53.353526",
+      "application_count": 0
+    },
+    {
+      "job_id": "10c72096-5b58-4403-909a-e4377cd384f1",
+      "hr_user_id": "4e6a9292-5ea6-4283-ab05-775640d3ebe3",
+      "username": "hr_batch_e498ffe6",
+      "display_name": "??????",
+      "title": "???????-????",
+      "department": "???",
+      "jd_text": "?? React ? TypeScript ????????????????????? CSS ?????????",
+      "jd_keywords": [
+        "React",
+        "TypeScript",
+        "CSS"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 18:27:35.086192",
+      "updated_at": "2026-07-12 18:27:35.086192",
+      "application_count": 3
+    },
+    {
+      "job_id": "f9a50325-3681-4c99-90a7-1afa9921c8df",
+      "hr_user_id": "4880f0ed-d6a4-4901-a5b9-a8751be13703",
+      "username": "hr_21f1b36b",
+      "display_name": "??HR",
+      "title": "???????",
+      "department": "???",
+      "jd_text": "?? React ? TypeScript ????????????????????? CSS ?????????",
+      "jd_keywords": [
+        "React",
+        "TypeScript",
+        "CSS"
+      ],
+      "status": "published",
+      "created_at": "2026-07-12 17:37:31.011034",
+      "updated_at": "2026-07-12 17:37:31.011034",
+      "application_count": 1
+    }
+  ]
+}

@@ -15,6 +15,10 @@ const applicationStatusMetaMap = {
     label: "待复审",
     tagType: "warning",
   },
+  screening_failed: {
+    label: "筛选失败",
+    tagType: "danger",
+  },
   rejected: {
     label: "未通过",
     tagType: "danger",

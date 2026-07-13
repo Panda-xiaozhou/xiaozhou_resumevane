@@ -34,6 +34,7 @@
               <el-tag v-else-if="row.status === 'processing'" type="warning">筛选中</el-tag>
               <el-tag v-else-if="row.status === 'passed'" type="success">已通过</el-tag>
               <el-tag v-else-if="row.status === 'pending_review'" type="warning">待复审</el-tag>
+              <el-tag v-else-if="row.status === 'screening_failed'" type="danger">筛选失败</el-tag>
               <el-tag v-else type="danger">未通过</el-tag>
             </template>
           </el-table-column>

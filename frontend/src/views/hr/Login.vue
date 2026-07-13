@@ -34,11 +34,13 @@
 
 <script setup>
 import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { hrLogin } from "../../api/index.js";
+import { getHrPostLoginLocation } from "../../router/hr_auth_redirect.js";
 
 const router = useRouter();
+const route = useRoute();
 const loading = ref(false);
 const form = reactive({ username: "", password: "" });
 const rules = {
@@ -55,7 +57,7 @@ const onLogin = async () => {
     localStorage.setItem("hr_user_id", data.user_id);
     localStorage.setItem("hr_display_name", data.display_name);
     ElMessage.success("登录成功");
-    router.push("/admin/dashboard");
+    router.push(getHrPostLoginLocation(route));
   } catch (e) {
     ElMessage.error("用户名或密码错误");
   } finally {

@@ -231,6 +231,7 @@ const stats = reactive({
   processing_count: 0,
   passed_count: 0,
   pending_review_count: 0,
+  screening_failed_count: 0,
   rejected_count: 0,
 });
 
@@ -264,7 +265,7 @@ const summaryCards = computed(() => [
     key: "passed",
     label: "已通过",
     value: stats.passed_count,
-    hint: `待复审 ${stats.pending_review_count}`,
+    hint: `待复审 ${stats.pending_review_count} · 筛选失败 ${stats.screening_failed_count}`,
   },
   {
     key: "rejected",
@@ -623,6 +624,10 @@ onMounted(fetchStats);
 
 .status-rejected {
   background: #ef4444;
+}
+
+.status-screening_failed {
+  background: #b91c1c;
 }
 
 .ranking-list {

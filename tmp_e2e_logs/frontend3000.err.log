@@ -1,0 +1,28 @@
+[2m03:53:52[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/hr/vectordb/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1194:18)
+    at afterConnectMultiple (node:net:1784:7)
+[2m03:53:52[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/hr/vectordb/jobs?page=1&page_size=10&search=[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1194:18)
+    at afterConnectMultiple (node:net:1784:7)
+[2m03:53:52[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search=[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1194:18)
+    at afterConnectMultiple (node:net:1784:7)
+[2m03:53:53[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/hr/vectordb/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1194:18)
+    at afterConnectMultiple (node:net:1784:7)
+[2m03:53:53[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/hr/vectordb/jobs?page=1&page_size=10&search=[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1194:18)
+    at afterConnectMultiple (node:net:1784:7)
+[2m03:53:53[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search=[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1194:18)
+    at afterConnectMultiple (node:net:1784:7)
+[2m03:53:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1194:18)
+    at afterConnectMultiple (node:net:1784:7)

@@ -1,0 +1,34 @@
+
+> resumevane-frontend@0.1.0 dev
+> vite --host 127.0.0.1 --port 3000
+
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m453[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m3000[22m/[39m
+[2m04:01:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/JobManage.vue[22m
+[2m04:11:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m04:11:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m04:25:42[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/VectorDbManage.vue, /src/views/hr/JobManage.vue, /src/views/candidate/JobDetail.vue, /src/views/hr/Dashboard.vue, /src/views/hr/ApplicationList.vue, /src/views/candidate/ApplyForm.vue, /src/views/candidate/StatusCheck.vue[22m
+[2m04:29:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m04:29:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m04:29:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m04:30:14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m04:30:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue?vue&type=style&index=0&scoped=dde9901f&lang.css[22m
+[2m04:32:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/VectorDbManage.vue, /src/views/hr/JobManage.vue, /src/views/candidate/JobDetail.vue, /src/views/hr/Dashboard.vue, /src/views/hr/ApplicationList.vue, /src/views/candidate/ApplyForm.vue, /src/views/candidate/StatusCheck.vue[22m
+[2m04:59:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m04:59:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/candidate/StatusCheck.vue[22m
+[2m05:00:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/Dashboard.vue, /src/views/hr/Dashboard.vue?vue&type=style&index=0&scoped=2a50a1c2&lang.css[22m
+[2m05:00:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m11:37:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m11:38:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m11:38:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue?vue&type=style&index=0&scoped=dde9901f&lang.css[22m
+[2m12:16:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m12:16:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m12:51:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m13:04:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m13:04:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m13:04:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m
+[2m13:04:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/router/index.js[22m
+[2m13:17:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/VectorDbManage.vue, /src/views/hr/JobManage.vue, /src/views/candidate/JobDetail.vue, /src/views/hr/Dashboard.vue, /src/views/hr/ApplicationList.vue, /src/views/candidate/ApplyForm.vue, /src/views/candidate/StatusCheck.vue, /src/views/candidate/JobList.vue[22m
+[2m13:17:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/hr/ApplicationList.vue[22m

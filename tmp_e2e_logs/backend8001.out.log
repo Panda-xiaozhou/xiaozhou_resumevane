@@ -1,0 +1,125 @@
+{"event": "app_starting", "level": "info", "logger": "backend.main", "timestamp": "2026-07-13T03:39:44.468090Z"}
+INFO:     127.0.0.1:58435 - "GET /api/jobs/d43af54f-e353-4b01-873f-ab605e89458b HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58564 - "POST /api/hr/register HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58565 - "POST /api/hr/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58566 - "POST /api/hr/jobs HTTP/1.1" 200 OK
+HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
+candidate_apply_created application_id=3d4cd8f4-3835-44cf-8867-026859914ff1 candidate_email=short_view2_7095f588@example.com job_id=d247efa1-e7a8-4f4c-8b9b-089cff41f60e
+schedule_pipeline_background application_id=3d4cd8f4-3835-44cf-8867-026859914ff1
+candidate_apply_task_scheduled application_id=3d4cd8f4-3835-44cf-8867-026859914ff1 background_task_count=0
+INFO:     127.0.0.1:58606 - "POST /api/candidate/apply HTTP/1.1" 200 OK
+run_pipeline_background_started application_id=3d4cd8f4-3835-44cf-8867-026859914ff1
+run_pipeline_background_finished application_id=3d4cd8f4-3835-44cf-8867-026859914ff1 status=None error=流水线执行失败: 简历文本内容过短，无法解析
+INFO:     127.0.0.1:58607 - "GET /api/hr/applications?job_id=d247efa1-e7a8-4f4c-8b9b-089cff41f60e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58620 - "GET /api/hr/applications?job_id=d247efa1-e7a8-4f4c-8b9b-089cff41f60e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64391 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53346 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00&status=screening_failed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53352 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53363 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00&status=screening_failed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59440 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63715 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64700 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00&status=screening_failed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60569 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65147 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58641 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55403 - "GET /api/hr/applications/d408d551-f48e-4bdc-a5bf-a95b413c596f HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52753 - "GET /api/jobs/ HTTP/1.1" 200 OK
+schedule_pipeline_background application_id=d408d551-f48e-4bdc-a5bf-a95b413c596f
+INFO:     127.0.0.1:57016 - "POST /api/hr/jobs/8389c597-f185-4c8e-80bd-a17c05e64d00/rescreen-all HTTP/1.1" 200 OK
+run_pipeline_background_started application_id=d408d551-f48e-4bdc-a5bf-a95b413c596f
+INFO:     127.0.0.1:60478 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:60894 - "GET /api/hr/applications/d408d551-f48e-4bdc-a5bf-a95b413c596f HTTP/1.1" 200 OK
+run_pipeline_background_finished application_id=d408d551-f48e-4bdc-a5bf-a95b413c596f status=pending_review error=None
+INFO:     127.0.0.1:58739 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49676 - "GET /api/hr/applications?job_id=3225bd39-3692-47bc-8065-386cb6e806f6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57026 - "GET /api/jobs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53272 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51338 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51339 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56644 - "DELETE /api/hr/jobs/d247efa1-e7a8-4f4c-8b9b-089cff41f60e/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53580 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51881 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51883 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51889 - "DELETE /api/hr/jobs/6f043b5e-0e51-4167-80bd-81bee1c3a6f5/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58459 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58460 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58461 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61827 - "GET /api/jobs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61840 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55543 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63360 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64568 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64569 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60533 - "GET /api/hr/jobs/8389c597-f185-4c8e-80bd-a17c05e64d00/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49369 - "GET /api/hr/jobs/8389c597-f185-4c8e-80bd-a17c05e64d00/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59109 - "GET /api/hr/jobs/8389c597-f185-4c8e-80bd-a17c05e64d00/embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53593 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64679 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64119 - "GET /api/hr/applications/d408d551-f48e-4bdc-a5bf-a95b413c596f HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65281 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59744 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59467 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60192 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60193 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60194 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50694 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51415 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61581 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59477 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59476 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59478 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64217 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59230 - "GET /api/jobs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55857 - "GET /api/jobs/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58758 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58759 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58760 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50821 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62471 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61559 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61560 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61561 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52949 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61989 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63968 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51322 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63014 - "GET /api/hr/applications/d408d551-f48e-4bdc-a5bf-a95b413c596f HTTP/1.1" 200 OK
+schedule_pipeline_background application_id=d408d551-f48e-4bdc-a5bf-a95b413c596f
+INFO:     127.0.0.1:52715 - "POST /api/hr/jobs/8389c597-f185-4c8e-80bd-a17c05e64d00/rescreen-all HTTP/1.1" 200 OK
+run_pipeline_background_started application_id=d408d551-f48e-4bdc-a5bf-a95b413c596f
+INFO:     127.0.0.1:52853 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:57014 - "GET /api/hr/vectordb/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54288 - "GET /api/hr/vectordb/jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54289 - "GET /api/hr/vectordb/unembedded-jobs?page=1&page_size=10&search= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62169 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55290 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+run_pipeline_background_finished application_id=d408d551-f48e-4bdc-a5bf-a95b413c596f status=pending_review error=None
+INFO:     127.0.0.1:61997 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60393 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63399 - "GET /api/hr/applications/d408d551-f48e-4bdc-a5bf-a95b413c596f HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56587 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64278 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57526 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63337 - "GET /api/hr/applications?job_id=5d323b1d-645e-434b-b152-924378eda980 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62488 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56116 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63295 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54335 - "GET /api/hr/dashboard/stats?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54341 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57861 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49855 - "GET /api/hr/jobs?hr_user_id=6703fba3-37fa-499d-9033-b3b5b26e1356 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62145 - "GET /api/hr/applications?job_id=8389c597-f185-4c8e-80bd-a17c05e64d00 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51518 - "POST /api/hr/applications/actions/push-selected HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59486 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59487 - "GET /openapi.json HTTP/1.1" 200 OK

@@ -28,7 +28,7 @@
       </el-col>
       <el-col :xs="24" :sm="12" :lg="6">
         <el-card shadow="hover" class="summary-card">
-          <div class="summary-label">已启用筛选</div>
+          <div class="summary-label">当前筛选</div>
           <div class="summary-filter">{{ listSummary.activeFilterText }}</div>
           <div class="summary-hint">搜索与状态筛选会共同作用于当前列表。</div>
         </el-card>
@@ -55,6 +55,7 @@
             <el-option label="筛选中" value="processing" />
             <el-option label="已通过" value="passed" />
             <el-option label="待复审" value="pending_review" />
+            <el-option label="筛选失败" value="screening_failed" />
             <el-option label="未通过" value="rejected" />
           </el-select>
         </el-col>
@@ -65,6 +66,44 @@
           </el-button>
         </el-col>
         <el-col :xs="24" :lg="9" class="toolbar-actions">
+          <el-button
+            type="warning"
+            plain
+            @click="toggleFailedOnly"
+          >
+            <el-icon><Warning /></el-icon>
+            {{ filterStatus === "screening_failed" ? "查看全部投递" : "仅看筛选失败" }}
+          </el-button>
+          <el-button
+            type="danger"
+            plain
+            :disabled="failedApplicationIds.length === 0"
+            :loading="retryingFailed"
+            @click="retryFailedRecords"
+          >
+            <el-icon><RefreshRight /></el-icon>
+            重试失败记录（{{ failedApplicationIds.length }}）
+          </el-button>
+          <el-button
+            type="danger"
+            plain
+            :disabled="selectedApplicationIds.length === 0"
+            :loading="deletingSelected"
+            @click="deleteSelected"
+          >
+            <el-icon><Delete /></el-icon>
+            删除选中项（{{ selectedApplicationIds.length }}）
+          </el-button>
+          <el-button
+            type="success"
+            plain
+            :disabled="selectedApplicationIds.length === 0"
+            :loading="selectedPushing"
+            @click="pushSelected"
+          >
+            <el-icon><Promotion /></el-icon>
+            一键选中推送（{{ selectedApplicationIds.length }}）
+          </el-button>
           <el-button
             type="primary"
             plain
@@ -90,7 +129,10 @@
       <div class="toolbar-meta">
         <span>状态标签颜色与工作台图表保持一致。</span>
         <span v-if="selectedApplicationIds.length > 0">
-          已勾选 {{ selectedApplicationIds.length }} 条，其中可直接处理 {{ selectedPendingIds.length }} 条。
+          已勾选 {{ selectedApplicationIds.length }} 条投递，可执行删除、推送或批量筛选操作。
+        </span>
+        <span v-else-if="failedApplicationIds.length > 0">
+          当前列表中有 {{ failedApplicationIds.length }} 条筛选失败记录，可直接批量重试。
         </span>
       </div>
     </el-card>
@@ -100,8 +142,8 @@
       type="info"
       show-icon
       :closable="false"
-      :title="`本次已勾选 ${selectedApplicationIds.length} 条投递，可处理记录 ${selectedPendingIds.length} 条。`"
-      description="系统会自动跳过非待筛选状态的记录，避免重复触发不必要的任务。"
+      :title="`本次已勾选 ${selectedApplicationIds.length} 条投递，可批量删除或批量重筛。`"
+      description="你可以继续勾选或取消勾选后，再点击对应的批量操作按钮。"
     />
 
     <el-card shadow="never">
@@ -148,10 +190,20 @@
             <span v-else class="muted-text">-</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="210" fixed="right">
+        <el-table-column label="操作" width="120" fixed="right">
           <template #default="{ row }">
-            <el-button size="small" type="primary" plain @click="showDetail(row)">详情</el-button>
-            <el-button size="small" @click="rescreen(row.id)" :loading="rescreeningId === row.id">重筛</el-button>
+            <div class="operation-column">
+              <el-button size="small" type="primary" plain @click="showDetail(row)">详情</el-button>
+              <el-button
+                v-if="shouldShowFailureReason(row)"
+                size="small"
+                type="danger"
+                plain
+                @click="showFailureReason(row)"
+              >
+                失败原因
+              </el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -204,6 +256,9 @@
                 </el-tag>
                 <span v-else>-</span>
               </el-descriptions-item>
+              <el-descriptions-item v-if="detail.failure_reason" label="失败原因">
+                <span style="white-space: pre-wrap">{{ detail.failure_reason }}</span>
+              </el-descriptions-item>
               <el-descriptions-item label="决策理由">
                 {{ detail.agent_result?.decision_reason || "暂无决策理由" }}
               </el-descriptions-item>
@@ -236,14 +291,20 @@
               </el-descriptions>
 
               <h4 class="section-title">教育背景</h4>
-              <div v-if="detail.parsed_resume.education?.length">
-                <el-tag
-                  v-for="education in detail.parsed_resume.education"
-                  :key="education"
-                  class="inline-tag"
+              <div v-if="detail.parsed_resume.education?.length" class="structured-list">
+                <el-card
+                  v-for="(education, index) in detail.parsed_resume.education"
+                  :key="`education-${index}`"
+                  shadow="never"
+                  class="structured-card"
                 >
-                  {{ education }}
-                </el-tag>
+                  <div class="structured-title">{{ education.school || "未填写学校" }}</div>
+                  <div class="structured-grid">
+                    <span>学历：{{ education.degree || "-" }}</span>
+                    <span>专业：{{ education.major || "-" }}</span>
+                    <span>毕业年份：{{ education.year || "-" }}</span>
+                  </div>
+                </el-card>
               </div>
               <p v-else class="muted-text">暂无教育背景信息</p>
 
@@ -261,16 +322,59 @@
               <p v-else class="muted-text">暂无技能信息</p>
 
               <h4 class="section-title">工作经历</h4>
-              <div v-if="detail.parsed_resume.work_experience?.length" class="bullet-list">
-                <p v-for="experience in detail.parsed_resume.work_experience" :key="experience">• {{ experience }}</p>
+              <div v-if="detail.parsed_resume.work_experience?.length" class="structured-list">
+                <el-card
+                  v-for="(experience, index) in detail.parsed_resume.work_experience"
+                  :key="`experience-${index}`"
+                  shadow="never"
+                  class="structured-card"
+                >
+                  <div class="structured-title">
+                    {{ experience.company || "未填写公司" }} · {{ experience.title || "未填写岗位" }}
+                  </div>
+                  <div class="structured-meta">时间：{{ experience.duration || "-" }}</div>
+                  <div class="structured-text">{{ experience.description || "暂无工作描述" }}</div>
+                </el-card>
               </div>
               <p v-else class="muted-text">暂无工作经历</p>
 
               <h4 class="section-title">项目经验</h4>
-              <div v-if="detail.parsed_resume.projects?.length" class="bullet-list">
-                <p v-for="project in detail.parsed_resume.projects" :key="project">• {{ project }}</p>
+              <div v-if="detail.parsed_resume.projects?.length" class="structured-list">
+                <el-card
+                  v-for="(project, index) in detail.parsed_resume.projects"
+                  :key="`project-${index}`"
+                  shadow="never"
+                  class="structured-card"
+                >
+                  <div class="structured-title">{{ project.name || "未填写项目名称" }}</div>
+                  <div class="structured-text">{{ project.description || "暂无项目描述" }}</div>
+                  <div v-if="project.tech_stack?.length" class="structured-tags">
+                    <el-tag
+                      v-for="tech in project.tech_stack"
+                      :key="tech"
+                      type="info"
+                      size="small"
+                      class="inline-tag"
+                    >
+                      {{ tech }}
+                    </el-tag>
+                  </div>
+                </el-card>
               </div>
               <p v-else class="muted-text">暂无项目经验</p>
+
+              <h4 class="section-title">证书 / 奖项</h4>
+              <div v-if="detail.parsed_resume.certifications?.length">
+                <el-tag
+                  v-for="certification in detail.parsed_resume.certifications"
+                  :key="certification"
+                  type="warning"
+                  class="inline-tag"
+                >
+                  {{ certification }}
+                </el-tag>
+              </div>
+              <p v-else class="muted-text">暂无证书或奖项信息</p>
             </template>
             <p v-else class="centered-muted">该投递尚未经过 AI 解析</p>
           </el-tab-pane>
@@ -383,18 +487,25 @@ import { ElMessage, ElMessageBox } from "element-plus";
 
 import {
   hrBatchRescreen,
+  hrDeleteSelectedApplications,
   hrDownloadResume,
   hrGetApplicationDetail,
   hrGetApplications,
-  hrRescreen,
+  hrPushSelectedApplications,
   hrRescreenSelected,
   hrUpdateAppStatus,
 } from "../../api/index.js";
 import { buildApplicationListSummary } from "./admin_experience_helpers.js";
 import {
+  findApplicationByDeepLink,
+  getDeepLinkedApplicationId,
+} from "./application_list_deep_link.js";
+import { shouldShowFailureReason } from "./application_list_failure_reason.js";
+import {
   getApplicationStatusMeta,
   getPushStatusMeta,
 } from "./application_list_status.js";
+import { buildSelectedPushMessage } from "./application_list_push_summary.js";
 
 const route = useRoute();
 const tableRef = ref(null);
@@ -403,7 +514,10 @@ const loading = ref(false);
 const searchText = ref("");
 const filterStatus = ref("");
 const batching = ref(false);
+const deletingSelected = ref(false);
 const selectedBatching = ref(false);
+const selectedPushing = ref(false);
+const retryingFailed = ref(false);
 const dialogVisible = ref(false);
 const detail = ref(null);
 const activeTab = ref("basic");
@@ -411,7 +525,7 @@ const overriding = ref(false);
 const currentPage = ref(1);
 const pageSize = 10;
 const selectedApplicationIds = ref([]);
-const rescreeningId = ref("");
+const handledDeepLinkId = ref("");
 
 const sortedApplications = computed(() => [...applications.value].sort((left, right) => {
   const leftScore = Number(left.match_score ?? -1);
@@ -423,6 +537,11 @@ const sortedApplications = computed(() => [...applications.value].sort((left, ri
 
   return new Date(right.created_at).getTime() - new Date(left.created_at).getTime();
 }));
+const failedApplicationIds = computed(() =>
+  applications.value
+    .filter((item) => item.status === "screening_failed")
+    .map((item) => item.id)
+);
 const detailStatusMeta = computed(() => getApplicationStatusMeta(detail.value?.status));
 const detailPushStatusMeta = computed(() => getPushStatusMeta(detail.value?.push_status));
 const listSummary = computed(() =>
@@ -463,12 +582,26 @@ const fetchApps = async () => {
     currentPage.value = 1;
     selectedApplicationIds.value = [];
     tableRef.value?.clearSelection?.();
+    const deepLinkedApplicationId = getDeepLinkedApplicationId(route);
+    const deepLinkedRow = findApplicationByDeepLink(applications.value, deepLinkedApplicationId);
+    if (deepLinkedRow && handledDeepLinkId.value !== deepLinkedApplicationId) {
+      handledDeepLinkId.value = deepLinkedApplicationId;
+      await showDetail(deepLinkedRow);
+    }
   } finally {
     loading.value = false;
   }
 };
 
 onMounted(fetchApps);
+
+watch(
+  () => route.query.application_id,
+  async () => {
+    handledDeepLinkId.value = "";
+    await fetchApps();
+  }
+);
 
 watch(currentPage, () => {
   selectedApplicationIds.value = [];
@@ -486,6 +619,119 @@ const handleSelectionChange = (rows) => {
   selectedApplicationIds.value = rows.map((row) => row.id);
 };
 
+const toggleFailedOnly = async () => {
+  filterStatus.value = filterStatus.value === "screening_failed" ? "" : "screening_failed";
+  await fetchApps();
+};
+
+const retryFailedRecords = async () => {
+  if (!failedApplicationIds.value.length) {
+    ElMessage.warning("当前列表中没有筛选失败记录");
+    return;
+  }
+
+  try {
+    await ElMessageBox.confirm(
+      `确认重试当前列表中的 ${failedApplicationIds.value.length} 条筛选失败记录吗？`,
+      "确认重试失败记录",
+      {
+        confirmButtonText: "确认重试",
+        cancelButtonText: "取消",
+        type: "warning",
+      }
+    );
+  } catch {
+    return;
+  }
+
+  retryingFailed.value = true;
+  try {
+    const res = await hrRescreenSelected(failedApplicationIds.value);
+    const missingCount = res.data.missing_ids?.length || 0;
+    const missingText = missingCount ? `，其中 ${missingCount} 条未加入队列` : "";
+    ElMessage.success(`已加入 ${res.data.queued_count} 条失败记录到筛选队列${missingText}`);
+    await fetchApps();
+  } catch (error) {
+    const message = error.response?.data?.detail || error.response?.data?.error || "重试失败记录失败";
+    ElMessage.error(message);
+  } finally {
+    retryingFailed.value = false;
+  }
+};
+
+const deleteSelected = async () => {
+  if (!selectedApplicationIds.value.length) {
+    ElMessage.warning("请先勾选投递记录");
+    return;
+  }
+
+  try {
+    await ElMessageBox.confirm(
+      `确认删除当前勾选的 ${selectedApplicationIds.value.length} 条投递吗？删除后将同时移除 AI 分析结果与原始简历文件。`,
+      "确认批量删除",
+      {
+        confirmButtonText: "确认删除",
+        cancelButtonText: "取消",
+        type: "warning",
+      }
+    );
+  } catch {
+    return;
+  }
+
+  deletingSelected.value = true;
+  try {
+    const res = await hrDeleteSelectedApplications(selectedApplicationIds.value);
+    const missingCount = res.data.missing_ids?.length || 0;
+    const missingText = missingCount ? `，其中 ${missingCount} 条未删除` : "";
+    ElMessage.success(`已删除 ${res.data.deleted_count} 条投递${missingText}`);
+    await fetchApps();
+  } catch (error) {
+    const message = error.response?.data?.detail || error.response?.data?.error || "删除选中项失败";
+    ElMessage.error(message);
+  } finally {
+    deletingSelected.value = false;
+  }
+};
+
+const pushSelected = async () => {
+  if (!selectedApplicationIds.value.length) {
+    ElMessage.warning("请先勾选投递记录");
+    return;
+  }
+
+  try {
+    await ElMessageBox.confirm(
+      `确认将当前勾选的 ${selectedApplicationIds.value.length} 条投递推送到飞书群吗？系统会复用已有筛选结果并附带 PDF 简历。`,
+      "确认推送选中投递",
+      {
+        confirmButtonText: "确认推送",
+        cancelButtonText: "取消",
+        type: "warning",
+      }
+    );
+  } catch {
+    return;
+  }
+
+  selectedPushing.value = true;
+  try {
+    const res = await hrPushSelectedApplications(selectedApplicationIds.value);
+    const message = buildSelectedPushMessage(res.data);
+    if (res.data.failed_count || res.data.missing_ids?.length) {
+      ElMessage.warning(message);
+    } else {
+      ElMessage.success(message);
+    }
+    await fetchApps();
+  } catch (error) {
+    const message = error.response?.data?.detail || error.response?.data?.error || "推送选中项失败";
+    ElMessage.error(message);
+  } finally {
+    selectedPushing.value = false;
+  }
+};
+
 const showDetail = async (row) => {
   activeTab.value = "basic";
   try {
@@ -497,18 +743,11 @@ const showDetail = async (row) => {
   }
 };
 
-const rescreen = async (appId) => {
-  rescreeningId.value = appId;
-  try {
-    await hrRescreen(appId);
-    ElMessage.success("已重新触发该投递的筛选流程");
-    await fetchApps();
-  } catch (error) {
-    const message = error.response?.data?.detail || error.response?.data?.error || "操作失败";
-    ElMessage.error(message);
-  } finally {
-    rescreeningId.value = "";
-  }
+const showFailureReason = (row) => {
+  ElMessageBox.alert(row.failure_reason || "暂无失败原因", "失败原因", {
+    confirmButtonText: "我知道了",
+    type: "error",
+  });
 };
 
 const rescreenSelected = async () => {
@@ -747,6 +986,12 @@ const renderMarkdown = (markdown) => {
   flex-wrap: wrap;
 }
 
+.operation-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .toolbar-meta {
   display: flex;
   justify-content: space-between;
@@ -816,6 +1061,50 @@ const renderMarkdown = (markdown) => {
 .bullet-list p {
   margin: 4px 0;
   font-size: 13px;
+}
+
+.structured-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.structured-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.structured-title {
+  color: #16213e;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.structured-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.structured-meta {
+  margin-top: 8px;
+  color: #8a94a6;
+  font-size: 12px;
+}
+
+.structured-text {
+  margin-top: 8px;
+  color: #334155;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.structured-tags {
+  margin-top: 10px;
 }
 
 .centered-muted {

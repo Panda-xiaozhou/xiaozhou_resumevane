@@ -91,5 +91,9 @@ export const hrRescreen = (appId) =>
   api.post(`/hr/applications/${appId}/rescreen`);
 export const hrRescreenSelected = (applicationIds) =>
   api.post("/hr/applications/rescreen-selected", applicationIds);
+export const hrPushSelectedApplications = (applicationIds) =>
+  api.post("/hr/applications/actions/push-selected", applicationIds);
+export const hrDeleteSelectedApplications = (applicationIds) =>
+  api.post("/hr/applications/actions/delete-selected", applicationIds);
 export const hrBatchRescreen = (jobId) =>
   api.post(`/hr/jobs/${jobId}/rescreen-all`);

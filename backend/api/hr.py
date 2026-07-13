@@ -32,8 +32,10 @@ from ..models.base import SessionLocal, get_db
 from ..services.auth_service import create_hr_user, get_hr_user, verify_password, create_token, get_current_user
 from ..services.job_service import create_job, get_jobs_by_hr, get_job, update_job_status, update_job, delete_job
 from ..services.application_service import (
+    delete_applications,
     get_applications_by_job,
     get_application,
+    push_selected_applications_to_feishu,
     schedule_pipeline_background,
     run_screening_pipeline,
     update_application_status,
@@ -60,6 +62,7 @@ STATUS_LABELS = {
     "processing": "筛选中",
     "passed": "已通过",
     "pending_review": "待复审",
+    "screening_failed": "筛选失败",
     "rejected": "未通过",
 }
 
@@ -71,6 +74,17 @@ def _get_resume_download_filename(app, candidate_name: str) -> str:
     ext = os.path.splitext(app.resume_file or "")[1]
     fallback_name = candidate_name if candidate_name else "candidate"
     return f"{fallback_name}_resume{ext}"
+
+
+def _get_pipeline_failure_reason(result) -> str:
+    if not result:
+        return ""
+    output_data = result.output_data or {}
+    if output_data.get("feishu_push_error"):
+        return output_data["feishu_push_error"]
+    if result.status == "failed":
+        return result.error_message or output_data.get("error", "")
+    return result.error_message or ""
 
 
 async def _embed_job_bg(job_id: str) -> None:
@@ -130,7 +144,7 @@ def build_dashboard_stats(jobs, apps, now: Optional[datetime] = None, trend_days
             "label": STATUS_LABELS[status],
             "value": status_counter.get(status, 0),
         }
-        for status in ("pending", "processing", "passed", "pending_review", "rejected")
+        for status in ("pending", "processing", "passed", "pending_review", "screening_failed", "rejected")
     ]
 
     return {
@@ -143,6 +157,7 @@ def build_dashboard_stats(jobs, apps, now: Optional[datetime] = None, trend_days
         "processing_count": status_counter.get("processing", 0),
         "passed_count": status_counter.get("passed", 0),
         "pending_review_count": status_counter.get("pending_review", 0),
+        "screening_failed_count": status_counter.get("screening_failed", 0),
         "rejected_count": status_counter.get("rejected", 0),
         "window_days": trend_days,
         "trend": list(trend_map.values()),
@@ -259,9 +274,11 @@ def hr_list_jobs(
             "id": str(j.id),
             "title": j.title,
             "department": j.department,
+            "jd_text": j.jd_text,
             "status": j.status,
             "jd_keywords": j.jd_keywords,
             "created_at": j.created_at.isoformat(),
+            "updated_at": j.updated_at.isoformat() if j.updated_at else None,
         }
         for j in jobs
     ]
@@ -493,6 +510,7 @@ def hr_list_applications(
         status: 状态筛选（pending / processing / passed / pending_review / rejected）
         search: 按候选人姓名或邮箱模糊搜索
     """
+    from ..models.agent_result import AgentResult
     from ..models.application import Application
     from ..models.user import Candidate
 
@@ -512,6 +530,24 @@ def hr_list_applications(
         )
 
     rows = query.order_by(Application.match_score.desc()).all()
+    application_ids = [app.id for app, _, _ in rows]
+
+    failure_reason_map = {}
+    if application_ids:
+        pipeline_results = (
+            db.query(AgentResult)
+            .filter(AgentResult.application_id.in_(application_ids))
+            .filter(AgentResult.agent_name == "pipeline")
+            .order_by(AgentResult.created_at.desc())
+            .all()
+        )
+        for pipeline_result in pipeline_results:
+            app_id = str(pipeline_result.application_id)
+            if app_id in failure_reason_map:
+                continue
+            failure_reason = _get_pipeline_failure_reason(pipeline_result)
+            if failure_reason:
+                failure_reason_map[app_id] = failure_reason
 
     return [
         {
@@ -522,6 +558,7 @@ def hr_list_applications(
             "status": app.status,
             "match_score": app.match_score,
             "push_status": app.push_status,
+            "failure_reason": failure_reason_map.get(str(app.id), ""),
             "created_at": app.created_at.isoformat(),
         }
         for app, name, email in rows
@@ -566,11 +603,18 @@ def hr_get_application_detail(
 
     agent_data = pipeline_result.output_data if pipeline_result else {}
 
+    parsed_resume = {}
+    if parser_result:
+        parsed_resume = parser_result.output_data.get("parsed_resume", {})
+    elif pipeline_result:
+        parsed_resume = pipeline_result.output_data.get("parsed_resume", {})
+
     return {
         "id": str(app.id),
         "status": app.status,
         "match_score": app.match_score,
         "push_status": app.push_status,
+        "failure_reason": _get_pipeline_failure_reason(pipeline_result),
         "form_data": app.form_data,
         "resume_file": app.resume_file,
         "resume_download_url": f"/api/hr/applications/{application_id}/resume",
@@ -580,7 +624,7 @@ def hr_get_application_detail(
             "email": candidate.email if candidate else "",
             "phone": candidate.phone if candidate else "",
         },
-        "parsed_resume": parser_result.output_data.get("parsed_resume", {}) if parser_result else {},
+        "parsed_resume": parsed_resume,
         "agent_result": agent_data,
     }
 
@@ -707,3 +751,50 @@ async def hr_rescreen_selected_applications(
         "requested_count": len(application_ids),
         "missing_ids": missing_ids,
     }
+
+
+@router.post("/applications/actions/delete-selected")
+def hr_delete_selected_applications(
+    application_ids: list[str] = Body(...),
+    db: Session = Depends(get_db),
+    current_user: HrUser = Depends(get_current_user),
+):
+    """按当前勾选项批量删除投递。"""
+    if not application_ids:
+        raise HTTPException(400, "请先选择投递记录")
+
+    from ..models.application import Application
+
+    jobs = get_jobs_by_hr(db, str(current_user.id))
+    allowed_job_ids = {job.id for job in jobs}
+    rows = (
+        db.query(Application)
+        .filter(Application.id.in_(application_ids))
+        .filter(Application.job_id.in_(allowed_job_ids))
+        .all()
+    )
+
+    found_ids = [str(app.id) for app in rows]
+    missing_ids = [application_id for application_id in application_ids if application_id not in found_ids]
+    deleted_count = delete_applications(db, found_ids)
+
+    return {
+        "deleted_count": deleted_count,
+        "requested_count": len(application_ids),
+        "missing_ids": missing_ids,
+    }
+
+
+@router.post("/applications/actions/push-selected")
+async def hr_push_selected_applications(
+    application_ids: list[str] = Body(...),
+    db: Session = Depends(get_db),
+    current_user: HrUser = Depends(get_current_user),
+):
+    """按当前勾选项批量推送飞书卡片和 PDF 简历。"""
+    if not application_ids:
+        raise HTTPException(400, "请先选择投递记录")
+
+    jobs = get_jobs_by_hr(db, str(current_user.id))
+    allowed_job_ids = {job.id for job in jobs}
+    return await push_selected_applications_to_feishu(db, application_ids, allowed_job_ids)

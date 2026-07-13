@@ -53,4 +53,21 @@ def parse_llm_json(content: str) -> dict:
     抛出:
         json.JSONDecodeError: JSON 格式无效
     """
-    return json.loads(clean_llm_json(content))
+    cleaned = clean_llm_json(content)
+    candidates = [cleaned]
+
+    # 如果前后混入了解释文本，尝试只截取最外层 JSON 对象
+    first_brace = cleaned.find("{")
+    last_brace = cleaned.rfind("}")
+    if first_brace != -1 and last_brace != -1 and first_brace < last_brace:
+        candidates.append(cleaned[first_brace:last_brace + 1])
+
+    last_error = None
+    for candidate in candidates:
+        normalized = re.sub(r",\s*([}\]])", r"\1", candidate)
+        try:
+            return json.loads(normalized)
+        except json.JSONDecodeError as error:
+            last_error = error
+
+    raise last_error if last_error else json.JSONDecodeError("Invalid JSON", cleaned, 0)

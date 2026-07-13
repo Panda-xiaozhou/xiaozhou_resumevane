@@ -9,6 +9,7 @@
 """
 import uuid
 from sqlalchemy.orm import Session
+from ..models.application import Application
 from ..models.job import Job
 
 
@@ -43,6 +44,7 @@ def get_jobs_by_hr(db: Session, hr_user_id: str) -> list[Job]:
     return (
         db.query(Job)
         .filter(Job.hr_user_id == uuid.UUID(hr_user_id))
+        .filter(Job.status != "deleted")
         .order_by(Job.created_at.desc())
         .all()
     )
@@ -110,6 +112,20 @@ def delete_job(db: Session, job_id: str) -> bool:
     job = get_job(db, job_id)
     if not job:
         return False
+
+    has_applications = (
+        db.query(Application.id)
+        .filter(Application.job_id == job.id)
+        .first()
+        is not None
+    )
+
+    if has_applications:
+        job.status = "deleted"
+        db.commit()
+        db.refresh(job)
+        return True
+
     db.delete(job)
     db.commit()
     return True
