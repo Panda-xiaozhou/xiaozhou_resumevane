@@ -49,6 +49,7 @@ jobs:
 
       - name: Run tests
         env:
+          PYTHONPATH: ${{ github.workspace }}
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/resumevane_test
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           JWT_SECRET_KEY: ci-test-secret-key-not-for-production
