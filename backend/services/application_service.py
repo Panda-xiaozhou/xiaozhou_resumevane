@@ -32,7 +32,6 @@ from ..models.base import SessionLocal
 from ..models.job import Job
 from ..agents.graph import resume_screening_graph
 from ..agents.state import AgentState
-from ..config import PASS_THRESHOLD, REVIEW_THRESHOLD
 
 logger = logging.getLogger(__name__)
 _scheduled_pipeline_tasks: set[asyncio.Task] = set()

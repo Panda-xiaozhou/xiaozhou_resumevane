@@ -27,7 +27,7 @@ import json
 
 from ..state import AgentState
 from ...utils.deepseek_client import chat_completion
-from ...utils.llm_helpers import clean_llm_json, parse_llm_json
+from ...utils.llm_helpers import parse_llm_json
 from ...utils.embedding import compute_semantic_skill_score
 
 SYSTEM_PROMPT = """你是一个技术招聘的匹配评估专家。你需要将候选人简历与岗位 JD 做多维度匹配评分。

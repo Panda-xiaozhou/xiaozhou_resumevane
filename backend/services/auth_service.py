@@ -16,7 +16,6 @@
   - 修改密码哈希方案或 Token 有效期时，需考虑已有用户的影响
   - 生产环境务必使用独立的 JWT_SECRET 环境变量
 """
-import uuid
 from datetime import datetime, timedelta
 
 from fastapi import Depends, HTTPException

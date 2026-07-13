@@ -25,7 +25,7 @@ import json
 
 from ..state import AgentState
 from ...utils.deepseek_client import chat_completion
-from ...utils.llm_helpers import clean_llm_json, parse_llm_json
+from ...utils.llm_helpers import parse_llm_json
 
 SYSTEM_PROMPT = """你是一个招聘报告撰写专家。你需要将候选人的多维度分析结果汇总为一份简洁的 Markdown 摘要报告。
 

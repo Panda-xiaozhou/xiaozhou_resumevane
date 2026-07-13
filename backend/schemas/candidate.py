@@ -3,7 +3,7 @@
 ==============================
 定义简历投递和状态查询的请求和响应格式。
 """
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 
 
 class CandidateApplyRequest(BaseModel):

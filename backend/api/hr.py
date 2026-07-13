@@ -19,21 +19,19 @@ HR 后台管理 API
 """
 import mimetypes
 import os
-import uuid
 from collections import Counter
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import APIRouter, BackgroundTasks, Body, Depends, File, Form, UploadFile, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Body, Depends, Form, HTTPException, Query
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from ..models.base import SessionLocal, get_db
 from ..services.auth_service import create_hr_user, get_hr_user, verify_password, create_token, get_current_user
-from ..services.job_service import create_job, get_jobs_by_hr, get_job, update_job_status, update_job, delete_job
+from ..services.job_service import create_job, get_jobs_by_hr, update_job_status, update_job, delete_job
 from ..services.application_service import (
     delete_applications,
-    get_applications_by_job,
     get_application,
     push_selected_applications_to_feishu,
     schedule_pipeline_background,
@@ -41,7 +39,6 @@ from ..services.application_service import (
     update_application_status,
 )
 from ..models.user import HrUser
-from ..config import UPLOAD_DIR
 from ..services.embedding_service import (
     delete_job_embeddings,
     embed_job,
@@ -373,8 +370,6 @@ def hr_dashboard_stats(
     返回当前 HR 的岗位总数、投递总数、处理中数量、已通过数量。
     """
     from ..models.application import Application
-    from ..models.job import Job as JobModel
-
     # 当前 HR 的所有岗位 ID
     jobs = get_jobs_by_hr(db, str(current_user.id))
     job_ids = [j.id for j in jobs]

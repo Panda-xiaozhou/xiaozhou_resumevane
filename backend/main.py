@@ -8,7 +8,6 @@ ResumeVane — FastAPI 应用入口
 访问 API 文档: http://localhost:8000/docs
 """
 import os
-import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -16,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from .config import UPLOAD_DIR, DEEPSEEK_API_KEY, JWT_SECRET_KEY
-from . import models as _models  # 确保所有模型已注册到 Base.metadata
+from . import models as _models  # noqa: F401  确保所有模型已注册到 Base.metadata
 from .models.base import engine, Base, SessionLocal
 from .utils.logging import setup_logging, get_logger
 

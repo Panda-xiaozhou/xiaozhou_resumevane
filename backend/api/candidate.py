@@ -34,7 +34,6 @@ from ..models.user import Candidate
 from ..services.auth_service import get_or_create_candidate
 from ..services.application_service import (
     create_application,
-    get_applications_by_candidate,
     schedule_pipeline_background,
 )
 from ..config import UPLOAD_DIR, MAX_RESUME_SIZE

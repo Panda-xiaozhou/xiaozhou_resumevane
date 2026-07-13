@@ -5,7 +5,6 @@
 """
 import uuid
 from collections import Counter
-from datetime import datetime
 
 from sqlalchemy.orm import Session
 

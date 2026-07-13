@@ -3,8 +3,6 @@ FastAPI 依赖注入
 ================
 提供认证、分页等通用依赖。
 """
-from typing import Optional
-
 from fastapi import Depends, HTTPException, Query
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session

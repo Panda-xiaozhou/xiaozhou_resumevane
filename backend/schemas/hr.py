@@ -3,10 +3,9 @@ HR 后台 API 的 Pydantic 模型
 ==============================
 定义 HR 注册、登录、岗位管理、投递管理的请求和响应格式。
 """
-from datetime import datetime
-from typing import Any, Optional
+from typing import Any
 
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 
 
 # ── 认证 ────────────────────────────────────────────

@@ -19,8 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # ── 复制应用代码 ─────────────────────────────────────
 COPY backend/ ./backend/
-# .env 文件——包含 API Key 等敏感信息，确保 .dockerignore 不排除它
-COPY .env ./
+# Do not bake local secrets into the image; provide runtime environment variables instead.
 
 # ── 启动配置 ─────────────────────────────────────────
 EXPOSE 8000

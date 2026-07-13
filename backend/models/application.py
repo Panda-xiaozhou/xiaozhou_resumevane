@@ -8,7 +8,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Column, String, DateTime, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, DateTime, Float, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 
 from .base import Base
